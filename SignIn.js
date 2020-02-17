@@ -7,17 +7,13 @@ import {
   Image,
 } from 'react-native';
 import { TextInput, HelperText, withTheme, Theme, Text, Button } from 'react-native-paper';
+import { PAGES } from './Constants';
 
 const MAX_LENGTH = 20;
 
 
 class TextInputExample extends React.Component{
   static title = 'TextInput';
-
-
-  state = {
-    email: '',
-  };
 
   signIn = () => {
 
@@ -53,12 +49,12 @@ class TextInputExample extends React.Component{
             style={[styles.inputEmail]}
             label="Email"
             //placeholder="Email"
-            value={this.state.outlinedLargeText}
+            value={this.props.operatorEmail}
             onChangeText={email =>
-              this.props.setEmail(email)
+              this.props.setOperatorEmail(email)
             }
           />
-          <Button style={styles.buttonJoin} mode="contained" onPress={() => this.props.setIsSignedIn(true)}>
+          <Button style={styles.buttonJoin} mode="contained" onPress={() => this.props.setActivePage(PAGES.PROFILE)}>
             <Text style={styles.buttonJoinText}>Join</Text>
           </Button>
           <View  />
