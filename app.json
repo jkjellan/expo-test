@@ -13,7 +13,7 @@
       "package": "com.lmig.uscm.byodrone",
       "config": {
         "googleMaps": {
-          //"apiKey": "AIzaSyD6JTU_M0clIZS-P0qV6wxYAemWOmExMtc"
+          
         }
       }
     },
