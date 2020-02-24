@@ -1,9 +1,13 @@
 import * as React from 'react';
 import {Fragment} from 'react';
-import { Appbar, Menu, Divider } from 'react-native-paper';
+import { StyleSheet } from 'react-native';
+import { Appbar, Menu, Divider, withTheme} from 'react-native-paper';
 import { PAGES } from './Constants';
 
-export default class Header extends React.Component {
+class Header extends React.Component {
+   // update theme from App.js
+  theme = this.props.theme;
+
   _goBack = () => console.log('Went back');
   _openMenu1 = () => this.setState({ visible1: true });
   _closeMenu1 = () => this.setState({ visible1: false });
@@ -17,13 +21,13 @@ export default class Header extends React.Component {
 
     return (
       <Fragment>
-      <Appbar.Header>
+      <Appbar.Header style = {this.styles.header}>
         <Appbar.BackAction
           onPress={this._goBack}
         />
         <Appbar.Content
           title={this.props.activePage}
-          subtitle={this.props.operatorEmail}
+          subtitle={this.props.operatorInfo.operatorEmail}
         />
         <Menu
           visible={visible1}
@@ -44,4 +48,12 @@ export default class Header extends React.Component {
       </Fragment>
     );
   }
+
+  styles = StyleSheet.create({
+    header: {
+      backgroundColor: this.theme.colors.primary
+    }
+  });
 }
+
+export default withTheme(Header)

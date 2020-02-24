@@ -2,7 +2,7 @@ import * as React from 'react';
 import {
   StyleSheet,
 } from 'react-native';
-import { BottomNavigation, Text } from 'react-native-paper';
+import { BottomNavigation, Text, withTheme } from 'react-native-paper';
 import { PAGES } from './Constants';
 import Profile from './Profile';
 import JobsList from './JobsList';
@@ -10,27 +10,40 @@ import JobActive from './JobActive';
 import JobsCompleted from './JobsCompleted';
 
 
-const operatorProfile = (text) => {
+const operatorProfile = (operatorInfo, setOperatorInfo) => {
   return (
-    <Profile text={text}/>
+    <Profile
+      operatorInfo={operatorInfo}
+      setOperatorInfo={setOperatorInfo}
+      text={"I am an operator profile"}
+    />
   )
 }
 
-const jobsList = (text) => {
+const jobsList = (operatorInfo) => {
   return (
-    <JobsList text={text}/>
+    <JobsList
+      operatorInfo={operatorInfo}
+      text={"I am a joblist"}
+    />
   )
 }
 
-const jobActive = (text) => {
+const jobActive = (operatorInfo) => {
   return (
-    <JobActive text={text}/>
+    <JobActive 
+      operatorInfo={operatorInfo}
+      text={"I am a list of active jobs"}
+    />
   )
 }
 
-const jobsCompleted = (text) => {
+const jobsCompleted = (operatorInfo) => {
   return (
-    <JobsCompleted text={text}/>
+    <JobsCompleted 
+      operatorInfo={operatorInfo}
+      text={"I am a list of completed jobs"}
+    />
   )
 }
 
@@ -41,17 +54,20 @@ const Pages = {
   3 : PAGES.COMPLETED_JOBS,
 }
 
-export default class BottomNav extends React.Component
+class BottomNav extends React.Component
  {
+   // update theme from App.js
+  theme = this.props.theme;
+
   static title = 'Bottom Navigation';
 
   state = {
     index: 0,
     routes: [
-      { key: 'operatorProfile', title: 'Profile', icon: 'account-box', color: '#2d302e' },
-      { key: 'jobsList', title: "Jobs", icon: 'format-list-checkbox', color: '#2d302e', badge: true, },
-      { key: 'jobActive', title: "Active", icon: 'checkbox-blank-outline', color: '#2d302e', },
-      { key: 'jobsCompleted', title: "Completed", icon: 'check-box-outline', color: '#2d302e', },
+      { key: 'operatorProfile', title: 'Profile', icon: 'account-box', color: this.theme.colors.primary },
+      { key: 'jobsList', title: "Jobs", icon: 'format-list-checkbox', color: this.theme.colors.primary, badge: true, },
+      { key: 'jobActive', title: "Active", icon: 'checkbox-blank-outline', color: this.theme.colors.primary, },
+      { key: 'jobsCompleted', title: "Completed", icon: 'check-box-outline', color: this.theme.colors.primary, },
     ],
   };
 
@@ -65,22 +81,23 @@ export default class BottomNav extends React.Component
           }
         }
         renderScene={BottomNavigation.SceneMap({
-          operatorProfile: () => operatorProfile("I am a profile"),
-          jobsList: () => jobsList("I am a list of jobs"),
-          jobActive: () => jobActive("I am an active job"),
-          jobsCompleted: () => jobsCompleted("I am a list of completed jobs"),
+          operatorProfile: () => operatorProfile(this.props.operatorInfo, this.props.setOperatorInfo),
+          jobsList: () => jobsList(this.props.operatorInfo),
+          jobActive: () => jobActive(this.props.operatorInfo),
+          jobsCompleted: () => jobsCompleted(this.props.operatorInfo),
         })}
       />
     );
   }
+
+
+
+  styles = StyleSheet.create({
+    navBar: {
+      backgroundColor: this.theme.colors.primary
+    }
+  });
 }
 
-const styles = StyleSheet.create({
-  profile: {
-    padding:30
-  },
-  photo: {
-    flex: 1,
-    resizeMode: 'cover',
-  },
-});
+
+export default withTheme(BottomNav)

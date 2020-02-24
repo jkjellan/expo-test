@@ -11,12 +11,35 @@ import { PAGES } from './Constants';
 
 const MAX_LENGTH = 20;
 
+  const exampleResponseFromMongoDb = {
+    operatorName: 'Test User',
+    operatorEmail: 'testEmail@gmail.com',
+    operatorAddress: '6630 Carleton Ave. S. Seattle WA',
+    operationRadius: 20
+  }
 
 class TextInputExample extends React.Component{
   static title = 'TextInput';
 
   signIn = () => {
+    return fetch('https://facebook.github.io/react-native/movies.json')
+      .then((response) => response.json())
+      .then((responseJson) => {
+        this.props.setActivePage(PAGES.PROFILE)
+        this.props.setOperatorInfo({
+          ...this.props.operatorInfo,
+          operatorName: exampleResponseFromMongoDb.operatorName,
+          operatorEmail: exampleResponseFromMongoDb.operatorEmail,
+          operatorAddress: exampleResponseFromMongoDb.operatorAddress,
+          operationRadius: exampleResponseFromMongoDb.operationRadius,
+        })
 
+        console.log("response from movies.json: ", responseJson)
+        return responseJson.movies;
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
 
   render() {
@@ -49,12 +72,15 @@ class TextInputExample extends React.Component{
             style={[styles.inputEmail]}
             label="Email"
             //placeholder="Email"
-            value={this.props.operatorEmail}
+            value={this.props.operatorInfo.operatorEmail}
             onChangeText={email =>
-              this.props.setOperatorEmail(email)
+              this.props.setOperatorInfo({
+                ...this.props.operatorInfo,
+                operatorEmail: email
+              })
             }
           />
-          <Button style={styles.buttonJoin} mode="contained" onPress={() => this.props.setActivePage(PAGES.PROFILE)}>
+          <Button style={styles.buttonJoin} mode="contained" onPress={() => this.signIn()}>
             <Text style={styles.buttonJoinText}>Join</Text>
           </Button>
           <View  />

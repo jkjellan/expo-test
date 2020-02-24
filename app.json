@@ -9,6 +9,14 @@
       "android",
       "web"
     ],
+    "android": {
+      "package": "com.lmig.uscm.byodrone",
+      "config": {
+        "googleMaps": {
+          //"apiKey": "AIzaSyD6JTU_M0clIZS-P0qV6wxYAemWOmExMtc"
+        }
+      }
+    },
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
