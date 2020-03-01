@@ -20,6 +20,7 @@ export default function Main() {
   // let [operationRadius, setOperationRadius] = React.useState();
   let [activePage, setActivePage] = React.useState(PAGES.SIGN_IN);
 
+  console.log("operatorInfoFromApp.js: ", operatorInfo)
   return (
     <PaperProvider theme={theme}>
       <ErrorBoundary>

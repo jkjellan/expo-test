@@ -288,7 +288,7 @@ mapStyle = [
                 latitude: 37.78825,
                 longitude: -122.4324,
               }}
-              radius={3000}
+              radius={this.props.operationRadius * 100}
               strokeWidth={2}
               strokeColor= "#ffe417"
               fillColor={ 'rgba(255, 228, 23, 0.3)' }

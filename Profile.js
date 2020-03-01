@@ -7,16 +7,24 @@ import Map from './Map';
 
 class Profile extends React.Component
 {
+  constructor(props) {
+    super(props);
+    // Don't call this.setState() here!
+    this.state = {
+      radius: this.props.operatorInfo.operationRadius,
+      operatorInfo: {
+          operatorName: this.props.operatorInfo.operatorName,
+          operatorEmail: this.props.operatorInfo.operatorEmail,
+          operatorAddress: this.props.operatorInfo.operatorAddress,
+          operationRadius: this.props.operatorInfo.operationRadius,
+      }
+    }
+}
    // update theme from App.js
   theme = this.props.theme;
 
-  state = {
-    radius: this.props.operatorInfo.operationRadius,
-    name: this.props.operatorInfo.operatorName,
-    address: this.props.operatorInfo.operatorAddress
-  }
-
   render() {
+    console.log("this.state.operatorInfo: ", this.state.operatorInfo)
 
     return (
       <Fragment>
@@ -27,12 +35,20 @@ class Profile extends React.Component
             label='Name'
             key="1"
             defaultValue={this.props.operatorInfo.operatorName}
-            onChangeText={(text) => this.setState({name: text})}
-            onBlur={() => {
+            value={this.state.operatorInfo.operatorName}
+            onChangeText={(name) => {
+              this.setState((prevState) => ({
+                ...prevState,
+                operatorInfo: {
+                  ...prevState.operatorInfo,
+                  operatorName: name
+                }
+              }))
               this.props.setOperatorInfo({
-                ...this.props.operatorInfo,
-                operatorName: this.state.name
-              })}
+                ...this.state.operatorInfo,
+                operatorName: name
+              })
+              }
             }
           />
           <TextInput
@@ -41,12 +57,20 @@ class Profile extends React.Component
             label='Address of Operation'
             underlineColor='transparent'
             defaultValue={this.props.operatorInfo.operatorAddress}
-            onChangeText={(text) => this.setState({address: text})}
-            onBlur={() => {
+            value={this.state.operatorInfo.operatorAddress}
+            onChangeText={(address) => {
+              this.setState((prevState) => ({
+                ...prevState,
+                operatorInfo: {
+                  ...prevState.operatorInfo,
+                  operatorAddress: address
+                }
+              }))
               this.props.setOperatorInfo({
-                ...this.props.operatorInfo,
-                operatorAddress: this.state.address
-              })}
+                ...this.state.operatorInfo,
+                operatorAddress: address
+              })
+              }
             }
           />
         </View>
@@ -56,32 +80,48 @@ class Profile extends React.Component
             icon="minus"
             color={this.theme.colors.accentLight}
             size={16}
-            onPress={ () =>
+            onPress={ () => {
+              this.setState((prevState) => ({
+                ...prevState,
+                operatorInfo: {
+                  ...prevState.operatorInfo,
+                  operationRadius: prevState.operatorInfo.operationRadius  - 10
+                }
+              }))
               this.props.setOperatorInfo({
-                ...this.props.operatorInfo,
-                operationRadius: this.props.operatorInfo.operationRadius - 10
+                ...this.state.operatorInfo,
+                operationRadius: this.state.operatorInfo.operationRadius - 10
               })
+              }
             }
             style={this.styles.radiusPlusMinus}
           />
           
-          <Text style={this.styles.radiusText}>{this.props.operatorInfo.operationRadius + " "}miles</Text>
+          <Text style={this.styles.radiusText}>{this.state.operatorInfo.operationRadius+ " "}miles</Text>
 
           <IconButton
             icon="plus"
             color={this.theme.colors.accentLight}
             size={16}
-            onPress={ () =>
+            onPress={ () => {
+              this.setState((prevState) => ({
+                ...prevState,
+                operatorInfo: {
+                  ...prevState.operatorInfo,
+                  operationRadius: prevState.operatorInfo.operationRadius  + 10
+                }
+              }))
               this.props.setOperatorInfo({
-                ...this.props.operatorInfo,
-                operationRadius: this.props.operatorInfo.operationRadius + 10
+                ...this.state.operatorInfo,
+                operationRadius: this.state.operatorInfo.operationRadius + 10
               })
+              }
             }
             style={this.styles.radiusPlusMinus}
           />
         </View>
         <View style = {this.styles.mapContainer}>
-          <Map/>
+          <Map operationRadius={this.state.operatorInfo.operationRadius}/>
         </View>
 
 

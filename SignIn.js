@@ -34,7 +34,7 @@ class TextInputExample extends React.Component{
           operationRadius: exampleResponseFromMongoDb.operationRadius,
         })
 
-        console.log("response from movies.json: ", responseJson)
+        //console.log("response from movies.json: ", responseJson)
         return responseJson.movies;
       })
       .catch((error) => {

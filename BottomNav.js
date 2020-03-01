@@ -71,21 +71,24 @@ class BottomNav extends React.Component
     ],
   };
 
-  render() {
-    return (
-      <BottomNavigation
-        navigationState={this.state}
-        onIndexChange={index => {
+  _handleIndexChange = index => {
           this.setState({ index })
           this.props.setActivePage(Pages[index])
           }
-        }
-        renderScene={BottomNavigation.SceneMap({
+
+  _renderScene = BottomNavigation.SceneMap({
           operatorProfile: () => operatorProfile(this.props.operatorInfo, this.props.setOperatorInfo),
           jobsList: () => jobsList(this.props.operatorInfo),
           jobActive: () => jobActive(this.props.operatorInfo),
           jobsCompleted: () => jobsCompleted(this.props.operatorInfo),
-        })}
+        });
+
+  render() {
+    return (
+      <BottomNavigation
+        navigationState={this.state}
+        onIndexChange={this._handleIndexChange}
+        renderScene={this._renderScene}
       />
     );
   }
