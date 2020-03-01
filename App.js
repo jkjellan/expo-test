@@ -12,7 +12,7 @@ export default function Main() {
     operatorName: '',
     operatorEmail: 'test',
     operatorAddress: '',
-    operationRadius: 20
+    operationRadius: 10
   });  
   // let [operatorName, setOperatorName] = React.useState();
   // let [operatorEmail, setOperatorEmail] = React.useState();

@@ -271,6 +271,9 @@ mapStyle = [
 ]
 
   render() {
+    console.log("render from Map this.props.operationRadius: ", this.props.operationRadius)
+    const metersPerMile = 1609.344
+
     return (
       <View>
         <MapView
@@ -278,8 +281,14 @@ mapStyle = [
           initialRegion={{
             latitude: 37.78825,
             longitude: -122.4324,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
+            latitudeDelta: this.props.operationRadius * .035,
+            longitudeDelta: this.props.operationRadius * .035,
+          }}
+          region={{
+            latitude: 37.78825,
+            longitude: -122.4324,
+            latitudeDelta: this.props.operationRadius * .035,
+            longitudeDelta: this.props.operationRadius * .035,
           }}
           customMapStyle={this.mapStyle}
           >
@@ -288,7 +297,7 @@ mapStyle = [
                 latitude: 37.78825,
                 longitude: -122.4324,
               }}
-              radius={this.props.operationRadius * 100}
+              radius={this.props.operationRadius * metersPerMile}
               strokeWidth={2}
               strokeColor= "#ffe417"
               fillColor={ 'rgba(255, 228, 23, 0.3)' }

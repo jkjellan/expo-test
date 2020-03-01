@@ -60,7 +60,7 @@ class Profile extends React.Component
             onPress={ () => {
               this.props.setOperatorInfo({
                 ...this.props.operatorInfo,
-                operationRadius: this.props.operatorInfo.operationRadius - 10
+                operationRadius: this.props.operatorInfo.operationRadius - 5
               })
               }
             }
@@ -76,7 +76,7 @@ class Profile extends React.Component
             onPress={ () => {
               this.props.setOperatorInfo({
                 ...this.props.operatorInfo,
-                operationRadius: this.props.operatorInfo.operationRadius + 10
+                operationRadius: this.props.operatorInfo.operationRadius + 5
               })
               }
             }
