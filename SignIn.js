@@ -43,6 +43,7 @@ class TextInputExample extends React.Component{
   }
 
   render() {
+    console.log("render from SignIn this.props.operatorInfo: ", this.props.operatorInfo)
     const {
       theme: {
         colors: { background },

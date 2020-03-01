@@ -10,21 +10,12 @@ class Profile extends React.Component
   constructor(props) {
     super(props);
     // Don't call this.setState() here!
-    this.state = {
-      radius: this.props.operatorInfo.operationRadius,
-      operatorInfo: {
-          operatorName: this.props.operatorInfo.operatorName,
-          operatorEmail: this.props.operatorInfo.operatorEmail,
-          operatorAddress: this.props.operatorInfo.operatorAddress,
-          operationRadius: this.props.operatorInfo.operationRadius,
-      }
-    }
-}
+  }
    // update theme from App.js
   theme = this.props.theme;
 
   render() {
-    console.log("this.state.operatorInfo: ", this.state.operatorInfo)
+    console.log("render from Profile this.props.operatorInfo: ", this.props.operatorInfo)
 
     return (
       <Fragment>
@@ -33,19 +24,12 @@ class Profile extends React.Component
             underlineColor='transparent'
             style={this.styles.textInput}
             label='Name'
-            key="1"
+            key={1}
             defaultValue={this.props.operatorInfo.operatorName}
-            value={this.state.operatorInfo.operatorName}
+            value={this.props.operatorInfo.operatorName}
             onChangeText={(name) => {
-              this.setState((prevState) => ({
-                ...prevState,
-                operatorInfo: {
-                  ...prevState.operatorInfo,
-                  operatorName: name
-                }
-              }))
               this.props.setOperatorInfo({
-                ...this.state.operatorInfo,
+                ...this.props.operatorInfo,
                 operatorName: name
               })
               }
@@ -57,17 +41,10 @@ class Profile extends React.Component
             label='Address of Operation'
             underlineColor='transparent'
             defaultValue={this.props.operatorInfo.operatorAddress}
-            value={this.state.operatorInfo.operatorAddress}
+            value={this.props.operatorInfo.operatorAddress}
             onChangeText={(address) => {
-              this.setState((prevState) => ({
-                ...prevState,
-                operatorInfo: {
-                  ...prevState.operatorInfo,
-                  operatorAddress: address
-                }
-              }))
               this.props.setOperatorInfo({
-                ...this.state.operatorInfo,
+                ...this.props.operatorInfo,
                 operatorAddress: address
               })
               }
@@ -81,39 +58,25 @@ class Profile extends React.Component
             color={this.theme.colors.accentLight}
             size={16}
             onPress={ () => {
-              this.setState((prevState) => ({
-                ...prevState,
-                operatorInfo: {
-                  ...prevState.operatorInfo,
-                  operationRadius: prevState.operatorInfo.operationRadius  - 10
-                }
-              }))
               this.props.setOperatorInfo({
-                ...this.state.operatorInfo,
-                operationRadius: this.state.operatorInfo.operationRadius - 10
+                ...this.props.operatorInfo,
+                operationRadius: this.props.operatorInfo.operationRadius - 10
               })
               }
             }
             style={this.styles.radiusPlusMinus}
           />
           
-          <Text style={this.styles.radiusText}>{this.state.operatorInfo.operationRadius+ " "}miles</Text>
+          <Text style={this.styles.radiusText}>{this.props.operatorInfo.operationRadius+ " "}miles</Text>
 
           <IconButton
             icon="plus"
             color={this.theme.colors.accentLight}
             size={16}
             onPress={ () => {
-              this.setState((prevState) => ({
-                ...prevState,
-                operatorInfo: {
-                  ...prevState.operatorInfo,
-                  operationRadius: prevState.operatorInfo.operationRadius  + 10
-                }
-              }))
               this.props.setOperatorInfo({
-                ...this.state.operatorInfo,
-                operationRadius: this.state.operatorInfo.operationRadius + 10
+                ...this.props.operatorInfo,
+                operationRadius: this.props.operatorInfo.operationRadius + 10
               })
               }
             }
@@ -121,7 +84,7 @@ class Profile extends React.Component
           />
         </View>
         <View style = {this.styles.mapContainer}>
-          <Map operationRadius={this.state.operatorInfo.operationRadius}/>
+          <Map operationRadius={this.props.operatorInfo.operationRadius}/>
         </View>
 
 

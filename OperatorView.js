@@ -11,6 +11,7 @@ class OperatorView extends React.Component
   theme = this.props.theme;
 
   render() {
+    console.log("render from OperatorView this.props.operatorInfo: ", this.props.operatorInfo)
     return (
       <Fragment>
         <Header 

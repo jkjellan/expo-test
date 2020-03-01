@@ -76,19 +76,27 @@ class BottomNav extends React.Component
           this.props.setActivePage(Pages[index])
           }
 
-  _renderScene = BottomNavigation.SceneMap({
-          operatorProfile: () => operatorProfile(this.props.operatorInfo, this.props.setOperatorInfo),
-          jobsList: () => jobsList(this.props.operatorInfo),
-          jobActive: () => jobActive(this.props.operatorInfo),
-          jobsCompleted: () => jobsCompleted(this.props.operatorInfo),
-        });
+  // _renderScene = BottomNavigation.SceneMap({
+  //         operatorProfile: () => operatorProfile(this.props.operatorInfo, this.props.setOperatorInfo),
+  //         jobsList: () => jobsList(this.props.operatorInfo),
+  //         jobActive: () => jobActive(this.props.operatorInfo),
+  //         jobsCompleted: () => jobsCompleted(this.props.operatorInfo),
+  //       });
+
+  sceneMap = {
+    operatorProfile: () => operatorProfile(this.props.operatorInfo, this.props.setOperatorInfo),
+    jobsList: () => jobsList(this.props.operatorInfo),
+    jobActive: () => jobActive(this.props.operatorInfo),
+    jobsCompleted: () => jobsCompleted(this.props.operatorInfo),
+  }
 
   render() {
+    console.log("render from BottomNav this.props.operatorInfo: ", this.props.operatorInfo)
     return (
       <BottomNavigation
         navigationState={this.state}
         onIndexChange={this._handleIndexChange}
-        renderScene={this._renderScene}
+        renderScene={this.sceneMap[this.state.routes[this.state.index].key]}
       />
     );
   }
