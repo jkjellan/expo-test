@@ -3,6 +3,7 @@ import {Fragment} from 'react';
 import { StyleSheet } from 'react-native';
 import { Appbar, Menu, Divider, withTheme} from 'react-native-paper';
 import { PAGES } from './Constants';
+import firebase from 'firebase';
 
 class Header extends React.Component {
    // update theme from App.js
@@ -40,7 +41,13 @@ class Header extends React.Component {
             />
           }
         >
-          <Menu.Item onPress={() => {this.props.setActivePage(PAGES.SIGN_IN)}} title="Log Out" />
+          <Menu.Item 
+            onPress={() => {
+              firebase.auth().signOut()
+              this.props.navigate('LoginScreen')
+            }}
+            title="Log Out" 
+            />
           <Divider />
           <Menu.Item onPress={() => {}} title="Another Menu Item" />
         </Menu>

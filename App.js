@@ -1,11 +1,21 @@
 import * as React from 'react';
-import { AppRegistry } from 'react-native';
+import { AppRegistry} from 'react-native';
 import { Button, DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import ErrorBoundary from './ErrorBoundary.js';
 import OperatorView from './OperatorView.js';
-import SignIn from './SignIn.js';
+import Login from './Login.js';
+import Loading from './Loading.js';
 import { PAGES } from './Constants';
+import { createAppContainer, createSwitchNavigator, YellowBox } from 'react-navigation';
+import firebase from 'firebase';
+import {firebaseConfig} from './config.js';
 
+// Suppresses warnings in UI until fixed
+console.disableYellowBox = true;
+
+
+
+firebase.initializeApp(firebaseConfig);
 
 export default function Main() {
   let [operatorInfo, setOperatorInfo] = React.useState({
@@ -24,24 +34,51 @@ export default function Main() {
   return (
     <PaperProvider theme={theme}>
       <ErrorBoundary>
-      {
-        activePage == PAGES.SIGN_IN ?
-        <SignIn 
-          setActivePage={setActivePage}
-          operatorInfo={operatorInfo}
-          setOperatorInfo={setOperatorInfo} 
-        />:
-        <OperatorView 
-          setActivePage={setActivePage}
-          activePage={activePage} 
-          operatorInfo={operatorInfo}
-          setOperatorInfo={setOperatorInfo}
+        <AppNavigator 
+          screenProps={
+            {
+              operatorInfo: operatorInfo,
+              setOperatorInfo: setOperatorInfo,
+              activePage: activePage,
+              setActivePage: setActivePage,
+            }
+          }
         />
-      }
       </ErrorBoundary>
     </PaperProvider>
   );
 }
+
+        // activePage == PAGES.SIGN_IN ?
+        // <Login 
+        //   setActivePage={setActivePage}
+        //   operatorInfo={operatorInfo}
+        //   setOperatorInfo={setOperatorInfo} 
+        // />:
+        // <OperatorView 
+        //   setActivePage={setActivePage}
+        //   activePage={activePage} 
+        //   operatorInfo={operatorInfo}
+        //   setOperatorInfo={setOperatorInfo}
+        // />
+
+    //         <OperatorView 
+    //   setActivePage={this.screenProps.setActivePage}
+    //   activePage={this.screenPropsactivePage} 
+    //   operatorInfo={this.screenProps.operatorInfo}
+    //   setOperatorInfo={this.screenProps.setOperatorInfo}
+    // />
+      
+
+
+const AppSwitchNavigator = createSwitchNavigator({
+  LoadingScreen: Loading,
+  LoginScreen: Login,
+  OperatorView: OperatorView,
+})
+
+const AppNavigator = createAppContainer(AppSwitchNavigator)
+
 
 const theme = {
   ...DefaultTheme,

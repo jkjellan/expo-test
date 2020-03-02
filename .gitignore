@@ -12,3 +12,8 @@ web-report/
 
 # macOS
 .DS_Store
+
+
+# google configs
+app.json
+config.js

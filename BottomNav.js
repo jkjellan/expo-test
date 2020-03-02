@@ -91,7 +91,7 @@ class BottomNav extends React.Component
   }
 
   render() {
-    console.log("render from BottomNav this.props.operatorInfo: ", this.props.operatorInfo)
+    //console.log("render from BottomNav this.props.operatorInfo: ", this.props.operatorInfo)
     return (
       <BottomNavigation
         navigationState={this.state}

@@ -11,19 +11,20 @@ class OperatorView extends React.Component
   theme = this.props.theme;
 
   render() {
-    console.log("render from OperatorView this.props.operatorInfo: ", this.props.operatorInfo)
+    //console.log("render from OperatorView this.props.operatorInfo: ", this.props.screenProps.operatorInfo)
     return (
       <Fragment>
         <Header 
-          activePage = {this.props.activePage} 
-          setActivePage = {this.props.setActivePage} 
-          operatorInfo = {this.props.operatorInfo}
+          activePage = {this.props.screenProps.activePage} 
+          setActivePage = {this.props.screenProps.setActivePage} 
+          operatorInfo = {this.props.screenProps.operatorInfo}
+          navigate = {this.props.navigation.navigate}
         />
         <BottomNav 
-          activePage= {this.props.activePage}
-          setActivePage = {this.props.setActivePage}
-          operatorInfo = {this.props.operatorInfo}
-          setOperatorInfo = {this.props.setOperatorInfo}
+          activePage= {this.props.screenProps.activePage}
+          setActivePage = {this.props.screenProps.setActivePage}
+          operatorInfo = {this.props.screenProps.operatorInfo}
+          setOperatorInfo = {this.props.screenProps.setOperatorInfo}
         />
       </Fragment>
     );

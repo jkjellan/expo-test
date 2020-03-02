@@ -2,7 +2,6 @@ import * as React from 'react';
 import { Fragment } from 'react';
 import { StyleSheet, View, Dimensions, Picker } from 'react-native';
 import { BottomNavigation, Text, TextInput, withTheme, IconButton } from 'react-native-paper';
-import { Dropdown } from 'react-native-material-dropdown';
 import Map from './Map';
 
 class Profile extends React.Component
@@ -15,7 +14,7 @@ class Profile extends React.Component
   theme = this.props.theme;
 
   render() {
-    console.log("render from Profile this.props.operatorInfo: ", this.props.operatorInfo)
+    //console.log("render from Profile this.props.operatorInfo: ", this.props.operatorInfo)
 
     return (
       <Fragment>

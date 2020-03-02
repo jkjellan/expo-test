@@ -2,7 +2,6 @@ import * as React from 'react';
 import { Fragment } from 'react';
 import { StyleSheet, View, Dimensions, Picker } from 'react-native';
 import { BottomNavigation, Text, TextInput, withTheme } from 'react-native-paper';
-import { Dropdown } from 'react-native-material-dropdown';
 import MapView from 'react-native-maps';
 
 class Map extends React.Component
@@ -271,7 +270,7 @@ mapStyle = [
 ]
 
   render() {
-    console.log("render from Map this.props.operationRadius: ", this.props.operationRadius)
+    //console.log("render from Map this.props.operationRadius: ", this.props.operationRadius)
     const metersPerMile = 1609.344
 
     return (
