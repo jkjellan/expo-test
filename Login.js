@@ -52,14 +52,6 @@ class Login extends React.Component{
         .signInWithCredential(credential)
         .then(function(result) {
           //console.log('user signed in with result: ', result)
-          console.log('screenProps ', screenProps)
-          screenProps.setOperatorInfo({
-             ...screenProps.operatorInfo,
-             operatorName: result.additionalUserInfo.profile.given_name + result.additionalUserInfo.profile.family_name,
-             operatorEmail: result.user.email,
-             operatorAddress: result.additionalUserInfo.profile.locale,
-             operationRadius: 10,
-           })
 
           if(result.additionalUserInfo.isNewUser)
           {
@@ -165,6 +157,8 @@ class Login extends React.Component{
             }
           />*/}
           <Button style={styles.buttonJoin} mode="contained" onPress={() => {
+            //console.log("on Sign in with Google button press, this.props: ", this.props)
+            //this.props.navigation.navigate('LoadingScreen');
             this.signInWithGoogleAsync()
             }}>
             <Text style={styles.buttonJoinText}>Sign In With Google</Text>

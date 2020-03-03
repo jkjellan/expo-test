@@ -13,8 +13,6 @@ import {firebaseConfig} from './config.js';
 // Suppresses warnings in UI until fixed
 console.disableYellowBox = true;
 
-
-
 firebase.initializeApp(firebaseConfig);
 
 export default function Main() {
@@ -24,10 +22,7 @@ export default function Main() {
     operatorAddress: '',
     operationRadius: 10
   });  
-  // let [operatorName, setOperatorName] = React.useState();
-  // let [operatorEmail, setOperatorEmail] = React.useState();
-  // let [operatorAddress, setOperatorAddress] = React.useState();
-  // let [operationRadius, setOperationRadius] = React.useState();
+
   let [activePage, setActivePage] = React.useState(PAGES.SIGN_IN);
 
   console.log("operatorInfoFromApp.js: ", operatorInfo)
@@ -49,28 +44,6 @@ export default function Main() {
   );
 }
 
-        // activePage == PAGES.SIGN_IN ?
-        // <Login 
-        //   setActivePage={setActivePage}
-        //   operatorInfo={operatorInfo}
-        //   setOperatorInfo={setOperatorInfo} 
-        // />:
-        // <OperatorView 
-        //   setActivePage={setActivePage}
-        //   activePage={activePage} 
-        //   operatorInfo={operatorInfo}
-        //   setOperatorInfo={setOperatorInfo}
-        // />
-
-    //         <OperatorView 
-    //   setActivePage={this.screenProps.setActivePage}
-    //   activePage={this.screenPropsactivePage} 
-    //   operatorInfo={this.screenProps.operatorInfo}
-    //   setOperatorInfo={this.screenProps.setOperatorInfo}
-    // />
-      
-
-
 const AppSwitchNavigator = createSwitchNavigator({
   LoadingScreen: Loading,
   LoginScreen: Login,
@@ -78,7 +51,6 @@ const AppSwitchNavigator = createSwitchNavigator({
 })
 
 const AppNavigator = createAppContainer(AppSwitchNavigator)
-
 
 const theme = {
   ...DefaultTheme,

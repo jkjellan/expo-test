@@ -6,18 +6,34 @@ import {
 } from 'react-native';
 import { Text, withTheme } from 'react-native-paper';
 import firebase from 'firebase';
+import { PAGES } from './Constants';
 
 
 class Loading extends React.Component{
 
     componentDidMount(){
+        console.log("Loading component did mount")
         this.checkIfLoggedIn();
     }
 
     checkIfLoggedIn = () => {
+        console.log("checkIfLoggedIn this.props: ", this.props)
         firebase.auth().onAuthStateChanged((user) => {
             if(user) {
-                this.props.navigation.navigate('OperatorView')
+                //console.log("user on Loading.js: ", user)
+                let userDataRef = firebase.database().ref('/users/' + user.uid);
+                userDataRef.on('value', (userData) => {
+                    console.log("snapshot userData: ", userData)
+                    console.log("Snapshot from line 24 userData.child('first_name'): ", userData.child("first_name"))
+                    this.props.screenProps.setOperatorInfo({
+                        operatorName: userData.child("first_name").val() + " " + userData.child("last_name").val(),
+                        operatorEmail: userData.child("gmail").val(),
+                        operatorAddress: "I live here",
+                        operationRadius: 10,
+                    })
+                    this.props.screenProps.setActivePage(PAGES.PROFILE)
+                    this.props.navigation.navigate('OperatorView')
+                })
             } else {
                 this.props.navigation.navigate('LoginScreen')
             }
