@@ -14,25 +14,19 @@ import firebase from 'firebase';
 const MAX_LENGTH = 20;
 
 class Login extends React.Component{
-  // constructor(props) {
-  //   super(props);
-  //   // Don't call this.setState() here!
-  // }
-
-
   isUserEqual = (googleUser, firebaseUser) => {
-  if (firebaseUser) {
-    var providerData = firebaseUser.providerData;
-    for (var i = 0; i < providerData.length; i++) {
-      if (providerData[i].providerId === firebase.auth.GoogleAuthProvider.PROVIDER_ID &&
-          providerData[i].uid === googleUser.getBasicProfile().getId()) {
-        // We don't need to reauth the Firebase connection.
-        return true;
+    if (firebaseUser) {
+      var providerData = firebaseUser.providerData;
+      for (var i = 0; i < providerData.length; i++) {
+        if (providerData[i].providerId === firebase.auth.GoogleAuthProvider.PROVIDER_ID &&
+            providerData[i].uid === googleUser.getBasicProfile().getId()) {
+          // We don't need to reauth the Firebase connection.
+          return true;
+        }
       }
     }
+    return false;
   }
-  return false;
-}
 
   onSignIn = (googleUser) => {
   //console.log('Google Auth Response', googleUser);
@@ -143,19 +137,6 @@ class Login extends React.Component{
               style = {styles.titleIcon}
             />
           </View>
-          {/*<TextInput
-            mode="outlined"
-            style={[styles.inputEmail]}
-            label="Email"
-            //placeholder="Email"
-            value={this.props.screenProps.operatorInfo.operatorEmail}
-            onChangeText={email =>
-              this.props.screenProps.setOperatorInfo({
-                ...this.props.screenProps.operatorInfo,
-                operatorEmail: email
-              })
-            }
-          />*/}
           <Button style={styles.buttonJoin} mode="contained" onPress={() => {
             //console.log("on Sign in with Google button press, this.props: ", this.props)
             //this.props.navigation.navigate('LoadingScreen');

@@ -8,10 +8,21 @@ class Profile extends React.Component
 {
   constructor(props) {
     super(props);
+    //this.ref = React.createRef();
+
     // Don't call this.setState() here!
+    this.state = {
+      nameEditable: false,
+      addressEditable: false
+    }
   }
    // update theme from App.js
   theme = this.props.theme;
+
+
+  componentDidMount() {
+    //this.nameRef.focus()
+  }
 
   render() {
     //console.log("render from Profile this.props.operatorInfo: ", this.props.operatorInfo)
@@ -20,10 +31,12 @@ class Profile extends React.Component
       <Fragment>
         <View key="textInput1" style={this.styles.textInputContainer}>
           <TextInput
+            ref={nameRef => this.nameRef = nameRef}
+            editable={this.state.nameEditable}
+            key={1}
             underlineColor='transparent'
             style={this.styles.textInput}
             label='Name'
-            key={1}
             defaultValue={this.props.operatorInfo.operatorName}
             value={this.props.operatorInfo.operatorName}
             onChangeText={(name) => {
@@ -34,8 +47,39 @@ class Profile extends React.Component
               }
             }
           />
+          <View style={this.styles.editButtonContainer}>
+            {
+              this.state.nameEditable ?
+              <IconButton
+                icon="check"
+                color={this.theme.colors.accentLight}
+                size={16}
+                onPress={ () => {
+                  this.setState({nameEditable: false})
+                  }
+                }
+                style={this.styles.editButton}
+              /> :
+              <IconButton
+                icon="pencil"
+                color={this.theme.colors.accentLight}
+                size={16}
+                onPress={ () => {
+                  this.setState({nameEditable: true, addressEditable: false},()=>{
+                    this.nameRef.focus()
+                  });
+                  }
+                }
+                style={this.styles.editButton}
+              />
+            }
+          </View>
+        </View>
+        <View key="textInput2" style={this.styles.textInputContainer}>
           <TextInput
-            key="2"
+            ref={addressRef => this.addressRef = addressRef}
+            editable={this.state.addressEditable}
+            key={1}
             style={this.styles.textInput}
             label='Address of Operation'
             underlineColor='transparent'
@@ -49,6 +93,33 @@ class Profile extends React.Component
               }
             }
           />
+          <View style={this.styles.editButtonContainer}>
+            {
+              this.state.addressEditable ?
+              <IconButton
+                icon="check"
+                color={this.theme.colors.accentLight}
+                size={16}
+                onPress={ () => {
+                  this.setState({addressEditable: false})
+                  }
+                }
+                style={this.styles.editButton}
+              /> :
+              <IconButton
+                icon="pencil"
+                color={this.theme.colors.accentLight}
+                size={16}
+                onPress={ () => {
+                  this.setState({addressEditable: true, nameEditable: false},()=>{
+                    this.addressRef.focus()
+                  })}
+                }
+  
+                style={this.styles.editButton}
+              />
+            }
+          </View>
         </View>
           <Text style={this.styles.radiusTitle}>Jobs Within</Text>
         <View key="radius1" style={this.styles.radiusContainer}>
@@ -149,16 +220,28 @@ class Profile extends React.Component
       fontSize: 40
     },
     textInput: {
+      flex: 1,
       fontSize: 24,
       backgroundColor: this.theme.colors.background,
       overflow: 'hidden',
       marginBottom: -2
     },
     textInputContainer: {
+      flexDirection: 'row',
+      width: "100%",
       overflow: 'hidden',
       fontSize: 24,
       backgroundColor: this.theme.colors.background,
-    }
+    },
+    editButton: {
+      backgroundColor: this.theme.colors.primary,
+      
+    },
+    editButtonContainer: {
+      paddingTop: 24,
+      paddingRight: 7
+      
+    },
   });
 }
 
