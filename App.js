@@ -17,6 +17,7 @@ firebase.initializeApp(firebaseConfig);
 
 export default function Main() {
   let [operatorInfo, setOperatorInfo] = React.useState({
+    uid: null,
     operatorName: '',
     operatorEmail: 'test',
     operatorAddress: '',

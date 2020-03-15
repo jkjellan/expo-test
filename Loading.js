@@ -25,12 +25,14 @@ class Loading extends React.Component{
                 userDataRef.on('value', (userData) => {
                     console.log("snapshot userData: ", userData)
                     console.log("Snapshot from line 24 userData.child('first_name'): ", userData.child("first_name"))
-                    this.props.screenProps.setOperatorInfo({
+                    this.props.screenProps.setOperatorInfo(prevOperatorInfo => ({
+                        ...prevOperatorInfo,
+                        uid: user.uid,
                         operatorName: userData.child("first_name").val() + " " + userData.child("last_name").val(),
                         operatorEmail: userData.child("gmail").val(),
                         operatorAddress: "I live here",
                         operationRadius: 10,
-                    })
+                    }))
                     this.props.screenProps.setActivePage(PAGES.PROFILE)
                     this.props.navigation.navigate('OperatorView')
                 })

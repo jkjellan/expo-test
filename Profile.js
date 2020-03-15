@@ -3,6 +3,7 @@ import { Fragment } from 'react';
 import { StyleSheet, View, Dimensions, Picker } from 'react-native';
 import { BottomNavigation, Text, TextInput, withTheme, IconButton } from 'react-native-paper';
 import Map from './Map';
+import firebase from 'firebase';
 
 class Profile extends React.Component
 {
@@ -19,6 +20,15 @@ class Profile extends React.Component
    // update theme from App.js
   theme = this.props.theme;
 
+  saveToDB = () => {
+    console.log("uid is: ", this.props.operatorInfo.uid)
+      firebase
+        .database()
+        .ref('/users/' + this.props.operatorInfo.uid).update({
+          first_name: this.props.operatorInfo.operatorName
+        })
+    }
+  
 
   componentDidMount() {
     //this.nameRef.focus()
@@ -56,6 +66,7 @@ class Profile extends React.Component
                 size={16}
                 onPress={ () => {
                   this.setState({nameEditable: false})
+                  this.saveToDB();
                   }
                 }
                 style={this.styles.editButton}

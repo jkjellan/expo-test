@@ -41,17 +41,21 @@ class Login extends React.Component{
           googleUser.idToken, googleUser.accessToken);
       // Sign in with credential from the Google user.
       //console.log("firebase signIn credential: ", credential)
+
+      const usersRef = firebase.database().ref('/users/')
+
       firebase
         .auth()
         .signInWithCredential(credential)
         .then(function(result) {
           //console.log('user signed in with result: ', result)
-
-          if(result.additionalUserInfo.isNewUser)
+          let userExists = false 
+          usersRef.child(result.user.uid).once('value', (snapshot) => {
+            userExists = snapshot.val() !== null
+          })
+          if(!userExists)
           {
-            firebase
-              .database()
-              .ref('/users/' + result.user.uid)
+            usersRef.child(result.user.uid)
               .set({
                 date_registered: Date.now(),
                 gmail: result.user.email,
